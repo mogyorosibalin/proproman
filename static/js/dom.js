@@ -24,41 +24,30 @@ let dom = {
                         title += '<button type="button" class="btn btn-link btn-sm new-btn">Add new</button>';
                     }
                     tempStatusTemplate = tempStatusTemplate.replace(/titleData/g, title);
+                    tempStatusTemplate = tempStatusTemplate.replace(/statusIdData/g, 'status-' + status.id);
                     this.appendToElement(document.getElementById('board-' + board.id).getElementsByClassName('row')[0], tempStatusTemplate);
                 }
             });
+            this.loadCards(board.id);
         }
     },
     loadCards: function(boardId) {
         // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(boardId, (cards) => {
-            this.showCards(boardId, cards);
+            this.showCards(cards);
         });
     },
-    showCards: function(boardId, cards) {
+    showCards: function(cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
-        dataHandler.getStatuses((statuses) => {
-            let board = document.getElementById('board-' + boardId).getElementsByClassName('col')[0];
-            let boardDetails = document.createElement('div');
-            boardDetails.setAttribute('id', 'collapse-' + boardId);
-            boardDetails.setAttribute('class', 'row card-containers collapse show');
-            boardDetails.setAttribute('data-parent', '#board');
-            for (let status of statuses) {
-                let text = '<div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">';
-                text += '<h4 class="h4">' + status.name + '</h4>';
-                text += '<div class="col col-12 status">';
-                for (let card of cards) {
-                    if (card.status_id === status.id) {
-                        text += '<div class="card">' + card.title + '</div>';
-                    }
-                }
-                text += '</div>';
-                text += '</div>';
-                boardDetails.innerHTML += text;
-            }
-            board.appendChild(boardDetails);
-        });
+        const TYPES = ["primary", "success", "danger", "warning", "info", "dark", "secondary", "light"];
+        let taskTemplate = document.getElementById('task-template').innerHTML;
+        for (let card of cards) {
+            let tempTaskTemplate = taskTemplate;
+            tempTaskTemplate = tempTaskTemplate.replace(/titleData/g, card.title);
+            tempTaskTemplate = tempTaskTemplate.replace(/typeData/g, TYPES[card.status_id - 1]);
+            this.appendToElement(document.getElementById('board-' + card.board_id).getElementsByClassName('status-' + card.status_id + '-tasks')[0], tempTaskTemplate);
+        }
     },
     appendToElement: function(elementToExtend, textToAppend, prepend = false) {
         // function to append new DOM elements (represented by a string) to an existing DOM element
