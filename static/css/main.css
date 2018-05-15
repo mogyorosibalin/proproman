@@ -1,54 +1,29 @@
-#boards {}
-
 .board {
-    background-color: cornflowerblue;
-    border: 1px solid #373737;
-    margin-top: 50px;
+    margin: 30px 0;
 }
 
-.board .title {
-    padding: 20px 0;
-    cursor: pointer;
-    -webkit-transition: box-shadow 0.2s ease-in-out;
-    -moz-transition: box-shadow 0.2s ease-in-out;
-    -ms-transition: box-shadow 0.2s ease-in-out;
-    -o-transition: box-shadow 0.2s ease-in-out;
-    transition: box-shadow 0.2s ease-in-out;
-}
-
-.board .title:hover {
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
-}
-
-.board .title .h3 {
-    margin: 0;
-}
-
-.board .card-containers .card-container {
-    border-top: 1px solid #373737;
-    border-right: 1px solid #373737;
+.card-header {
     padding: 0;
-}
-.board .card-containers .card-container:last-child {
-    border-right: none;
-}
-
-.board .card-containers .card-container .h4 {
-    text-align: center;
     margin: 0;
-    padding: 15px 0;
-    border-bottom: 1px solid #373737;
 }
 
-.board .card-containers .card-container .tasks {
-    padding: 0 20px;
+.card-header .h4 {
+    margin: 0;
 }
 
-.board .card-containers .card-container .card {
-    background-color: rgba(255, 255, 255, .15);
-    border: 1px solid rgba(0, 0, 0, .6);
-    border-radius: 0;
-    padding: 12px 8px;
-    margin: 10px 0;
-    text-align: center;
+.card-header .h4 button {
+    padding: 15px 20px;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
+
+.card-body .card-header {
+    padding: 10px 13px;
+    text-align: left;
+}
+
+.new-btn {
+    padding: 0;
+    margin: 0 0 0 5px;
 }

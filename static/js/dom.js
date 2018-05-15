@@ -10,13 +10,23 @@ let dom = {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
         let boardTemplate = document.getElementById('board-template').innerHTML;
-        for(board of boards) {
+        for (let board of boards) {
             let tempBoardTemplate = boardTemplate;
-            tempBoardTemplate = tempBoardTemplate.replace(/idData/g, String(board.id));
+            tempBoardTemplate = tempBoardTemplate.replace(/idData/g, 'board-' + board.id);
             tempBoardTemplate = tempBoardTemplate.replace(/titleData/g, board.title);
-            console.log(tempBoardTemplate);
-            let created = this.appendToElement(document.getElementById('boards'), tempBoardTemplate);
-            created.style.display = 'block'
+            this.appendToElement(document.getElementById('boards'), tempBoardTemplate);
+            dataHandler.getStatuses((statuses) => {
+                let statusTemplate = document.getElementById('status-template').innerHTML;
+                for (let status of statuses) {
+                    let tempStatusTemplate = statusTemplate;
+                    let title = status.name;
+                    if (status.id === 1) {
+                        title += '<button type="button" class="btn btn-link btn-sm new-btn">Add new</button>';
+                    }
+                    tempStatusTemplate = tempStatusTemplate.replace(/titleData/g, title);
+                    this.appendToElement(document.getElementById('board-' + board.id).getElementsByClassName('row')[0], tempStatusTemplate);
+                }
+            });
         }
     },
     loadCards: function(boardId) {
