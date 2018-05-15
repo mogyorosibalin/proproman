@@ -14,8 +14,7 @@ let dom = {
             let tempBoardTemplate = boardTemplate;
             tempBoardTemplate = tempBoardTemplate.replace(/idData/g, 'board-' + board.id);
             tempBoardTemplate = tempBoardTemplate.replace(/titleData/g, board.title);
-            let created = this.appendToElement(document.getElementById('boards'), tempBoardTemplate);
-            created.style.display = 'block';
+            this.appendToElement(document.getElementById('boards'), tempBoardTemplate);
             dataHandler.getStatuses((statuses) => {
                 let statusTemplate = document.getElementById('status-template').innerHTML;
                 for (let status of statuses) {
@@ -25,8 +24,7 @@ let dom = {
                         title += '<button type="button" class="btn btn-link btn-sm new-btn">Add new</button>';
                     }
                     tempStatusTemplate = tempStatusTemplate.replace(/titleData/g, title);
-                    let created = this.appendToElement(document.getElementById('board-' + board.id).getElementsByClassName('row')[0], tempStatusTemplate);
-                    created.style.display = 'block';
+                    this.appendToElement(document.getElementById('board-' + board.id).getElementsByClassName('row')[0], tempStatusTemplate);
                 }
             });
         }
