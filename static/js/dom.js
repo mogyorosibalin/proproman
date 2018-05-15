@@ -28,6 +28,14 @@ let dom = {
         }
 
         return elementToExtend.lastChild;
-    }
+    },
     // here comes more features
+    addNewBoard: function() {
+        // add a new board, and display the boards again
+        let boardTitle = document.getElementById('new-board-title').value;
+        document.getElementById('new-board-title').value = '';
+        dataHandler.createNewBoard(boardTitle, (boards) => {
+            this.showBoards(boards);
+        });
+    }
 }
