@@ -2,10 +2,22 @@
 let dom = {
     loadBoards: function() {
         // retrieves boards and makes showBoards called
+        dataHandler.getBoards((boards) => {
+            this.showBoards(boards);
+        });
     },
     showBoards: function(boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
+        let boardTemplate = document.getElementById('board-template').innerHTML;
+        for(board of boards) {
+            let tempBoardTemplate = boardTemplate;
+            tempBoardTemplate = tempBoardTemplate.replace(/idData/g, String(board.id));
+            tempBoardTemplate = tempBoardTemplate.replace(/titleData/g, board.title);
+            console.log(tempBoardTemplate);
+            let created = this.appendToElement(document.getElementById('boards'), tempBoardTemplate);
+            created.style.display = 'block'
+        }
     },
     loadCards: function(boardId) {
         // retrieves cards and makes showCards called
@@ -37,5 +49,5 @@ let dom = {
         dataHandler.createNewBoard(boardTitle, (boards) => {
             this.showBoards(boards);
         });
-    }
-}
+    },
+};
