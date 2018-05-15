@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ProMan</title>
 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
@@ -14,5 +15,79 @@
     <body>
         <h1>ProMan</h1>
         <div id="boards">Boards are loading...</div>
+        <div class="container" id="boards">
+            <div class="row board">
+                <div class="col col-12">
+                    <div class="row title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="col col-12">
+                            <h3 class="h3">Board Name</h3>
+                        </div>
+                    </div>
+                    <div id="collapseOne" class="row card-containers collapse show" data-parent="#board">
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">New</h4>
+                            <div class="col col-12 tasks">
+                                <div class="card">Task 1</div>
+                                <div class="card">Task 2</div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">In progress</h4>
+                            <div class="col col-12 tasks">
+                                <div class="card">Task 3</div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">Testing</h4>
+                            <div class="col col-12 tasks"></div>
+                        </div>
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">Done</h4>
+                            <div class="col col-12 tasks">
+                                <div class="card">Task 4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row board">
+                <div class="col col-12">
+                    <div class="row title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        <div class="col col-12">
+                            <h3 class="h3">Board Name</h3>
+                        </div>
+                    </div>
+                    <div id="collapseTwo" class="row card-containers collapse" data-parent="#board">
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">New</h4>
+                            <div class="col col-12 tasks">
+                                <div class="card">Task 1</div>
+                                <div class="card">Task 2</div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">In progress</h4>
+                            <div class="col col-12 tasks">
+                                <div class="card">Task 3</div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">Testing</h4>
+                            <div class="col col-12 tasks"></div>
+                        </div>
+                        <div class="col col-12 col-xl-3 col-lg-3 col-md-3 card-container">
+                            <h4 class="h4">Done</h4>
+                            <div class="col col-12 tasks">
+                                <div class="card">Task 4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     </body>
 </html>
