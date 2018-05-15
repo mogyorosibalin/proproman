@@ -10,6 +10,18 @@ let dataHandler = {
         // it is not called from outside
         // loads data from local storage, parses it and put into this._data property
         this._data = JSON.parse(localStorage.getItem(this.keyInLocalStorage));
+        if (!this._data) {
+            this._data = {
+                "statuses": [
+                    { "id": 1, "name": "New" },
+                    { "id": 2, "name": "In progress" },
+                    { "id": 3, "name": "Testing" },
+                    { "id": 4, "name": "Done" }
+                ],
+                "boards": [],
+                "cards": [],
+            }
+        }
     },
     _saveData: function() {
         // it is not called from outside
@@ -78,7 +90,7 @@ let dataHandler = {
         let len = boards.length;
         let newId = 0;
         for (let i=0; i<len; i++){
-            if (boards[i].id > id){
+            if (boards[i].id >= newId){
                 newId = boards[i].id + 1;
             }
         }
