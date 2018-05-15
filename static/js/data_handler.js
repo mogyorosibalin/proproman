@@ -97,7 +97,7 @@ let dataHandler = {
         let newBoard = {
             "id": newId,
             "title": boardTitle,
-            "is_active": true
+            "is_active": false
         };
         this._data.boards.push(newBoard);
         this._saveData();
