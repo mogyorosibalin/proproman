@@ -14,6 +14,33 @@
     </head>
     <body>
         <h1>ProMan</h1>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBoardModal">
+            New Board
+        </button>
+        <div class="modal fade" id="newBoardModal" tabindex="-1" role="dialog" aria-labelledby="newBoardModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Board</span>
+                            </div>
+                            <input type="text" id="new-board-title" class="form-control" placeholder="Board title" aria-label="Board title" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dom.addNewBoard()">Add New</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="boards">Boards are loading...</div>
         <div class="container" id="boards">
             <div class="row board">
