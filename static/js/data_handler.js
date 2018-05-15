@@ -101,7 +101,7 @@ let dataHandler = {
         };
         this._data.boards.push(newBoard);
         this._saveData();
-        callback(this._data.boards);
+        callback([newBoard]);
     },
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
