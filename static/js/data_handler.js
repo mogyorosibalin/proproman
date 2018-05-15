@@ -13,13 +13,79 @@ let dataHandler = {
         if (!this._data) {
             this._data = {
                 "statuses": [
-                    { "id": 1, "name": "New" },
-                    { "id": 2, "name": "In progress" },
-                    { "id": 3, "name": "Testing" },
-                    { "id": 4, "name": "Done" }
+        {
+            "id": 1,
+            "name": "New"
+        },
+        {
+            "id": 2,
+            "name": "In progress"
+        },
+        {
+            "id": 3,
+            "name": "Testing"
+        },
+        {
+            "id": 4,
+            "name": "Done"
+        }
+    ],
+                "boards": [
+                    {
+                        "id": 1,
+                        "title": "Test Board 1",
+                        "is_active": true
+                    },
+                    {
+                        "id": 2,
+                        "title": "Test Board 2",
+                        "is_active": true
+                    }
                 ],
-                "boards": [],
-                "cards": [],
+                "cards": [
+                    {
+                        "id": 1,
+                        "title": "task1",
+                        "board_id": 1,
+                        "status_id": 1,
+                        "order": 3
+                    },
+                    {
+                        "id": 2,
+                        "title": "task2",
+                        "board_id": 1,
+                        "status_id": 2,
+                        "order": 2
+                    },
+                    {
+                        "id": 3,
+                        "title": "task3",
+                        "board_id": 1,
+                        "status_id": 4,
+                        "order": 1
+                    },
+                    {
+                        "id": 4,
+                        "title": "task4",
+                        "board_id": 2,
+                        "status_id": 1,
+                        "order": 3
+                    },
+                    {
+                        "id": 5,
+                        "title": "task5",
+                        "board_id": 2,
+                        "status_id": 2,
+                        "order": 2
+                    },
+                    {
+                        "id": 6,
+                        "title": "task6",
+                        "board_id": 2,
+                        "status_id": 3,
+                        "order": 1
+                    }
+                ]
             }
         }
     },
@@ -67,7 +133,7 @@ let dataHandler = {
         let len = cards.length;
         let filteredCards = [];
         for (let i=0; i<len; i++){
-            if (cards[i].id === boardId){
+            if (cards[i].board_id === boardId){
                 filteredCards.push(cards[i])
             }
         }
