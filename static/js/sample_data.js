@@ -21,7 +21,7 @@ let sampleData = {
             "id": 4,
             "name": "Done"
         }
-    ],
+],
     "boards": [
         {
             "id": 1,
@@ -31,7 +31,7 @@ let sampleData = {
         {
             "id": 2,
             "title": "Test Board 2",
-            "is_active": false
+            "is_active": true
         }
     ],
     "cards": [
@@ -46,14 +46,14 @@ let sampleData = {
             "id": 2,
             "title": "task2",
             "board_id": 1,
-            "status_id": 2,
+            "status_id": 1,
             "order": 2
         },
         {
             "id": 3,
             "title": "task3",
             "board_id": 1,
-            "status_id": 4,
+            "status_id": 1,
             "order": 1
         },
         {
