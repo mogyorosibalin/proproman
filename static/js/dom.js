@@ -21,7 +21,7 @@ let dom = {
                     let tempStatusTemplate = statusTemplate;
                     let title = status.name;
                     if (status.id === 1) {
-                        title += '<button type="button" class="btn btn-link btn-sm new-btn">Add new</button>';
+                        title += '<button type="button" data-target="#newCardModal" data-toggle="modal" class="btn btn-link btn-sm new-btn" onclick="dom.showNewCardModal(' + board.id + ')">Add new</button>';
                     }
                     tempStatusTemplate = tempStatusTemplate.replace(/titleData/g, title);
                     tempStatusTemplate = tempStatusTemplate.replace(/statusIdData/g, 'status-' + status.id);
@@ -69,8 +69,19 @@ let dom = {
         // add a new board, and display the boards again
         let boardTitle = document.getElementById('new-board-title').value;
         document.getElementById('new-board-title').value = '';
-        dataHandler.createNewBoard(boardTitle, (boards) => {
-            this.showBoards(boards);
+        dataHandler.createNewBoard(boardTitle, (board) => {
+            this.showBoards(board);
         });
     },
+    showNewCardModal: function(boardId) {
+        document.getElementById('boardIdForNewCard').value = boardId;
+    },
+    addNewCard: function() {
+        let boardId = parseInt(document.getElementById('boardIdForNewCard').value);
+        let cardTitle = document.getElementById('new-card-title').value;
+        document.getElementById('new-card-title').value = '';
+        dataHandler.createNewCard(cardTitle, boardId, 1, (card) => {
+            this.showCards(card);
+        });
+    }
 };

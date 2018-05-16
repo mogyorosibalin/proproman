@@ -8,12 +8,15 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="{{ url_for('static', filename='js/sample_data.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     </head>
     <body>
         <h1>ProMan</h1>
+
+        <!-- Add board modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBoardModal">
             New Board
         </button>
@@ -21,7 +24,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="newBoardModalLabel">Modal title</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -41,6 +44,39 @@
                 </div>
             </div>
         </div>
+        <!-- Add board modal end -->
+
+        <!-- Add card modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newCardModal">
+            Launch demo modal
+        </button>
+        <div class="modal fade" id="newCardModal" tabindex="-1" role="dialog" aria-labelledby="newCardModalLabel" aria-hidden="true">
+            <input type="hidden" id="boardIdForNewCard" value="">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newCardModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Card</span>
+                            </div>
+                            <input type="text" id="new-card-title" class="form-control" placeholder="Card title" aria-label="Card title" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dom.addNewCard()">Add New</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add card modal end -->
+
         <div class="container" id="boards"></div>
 
         <div id="board-template" style="display: none;">
