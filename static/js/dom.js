@@ -44,6 +44,7 @@ let dom = {
         let taskTemplate = document.getElementById('task-template').innerHTML;
         for (let card of cards) {
             let tempTaskTemplate = taskTemplate;
+            tempTaskTemplate = tempTaskTemplate.replace(/idData/g, card.id);
             tempTaskTemplate = tempTaskTemplate.replace(/titleData/g, card.title);
             tempTaskTemplate = tempTaskTemplate.replace(/typeData/g, TYPES[card.status_id - 1]);
             this.appendToElement(document.getElementById('board-' + card.board_id).getElementsByClassName('status-' + card.status_id + '-tasks')[0], tempTaskTemplate);
@@ -66,7 +67,6 @@ let dom = {
     },
     // here comes more features
     addNewBoard: function() {
-        // add a new board, and display the boards again
         let boardTitle = document.getElementById('new-board-title').value;
         document.getElementById('new-board-title').value = '';
         dataHandler.createNewBoard(boardTitle, (board) => {
@@ -76,12 +76,42 @@ let dom = {
     showNewCardModal: function(boardId) {
         document.getElementById('boardIdForNewCard').value = boardId;
     },
-    addNewCard: function() {
+    cardHandler: function() {
         let boardId = parseInt(document.getElementById('boardIdForNewCard').value);
+        let cardId = parseInt(document.getElementById('cardIdForEditCard').value);
         let cardTitle = document.getElementById('new-card-title').value;
         document.getElementById('new-card-title').value = '';
+        if (boardId) {
+            this.addNewCard(boardId, cardTitle);
+        }
+        if (cardId) {
+            this.editCard(cardId, cardTitle);
+        }
+    },
+    addNewCard: function(boardId, cardTitle) {
+        document.getElementById('boardIdForNewCard').value = "";
         dataHandler.createNewCard(cardTitle, boardId, 1, (card) => {
             this.showCards(card);
         });
+    },
+    showEditCard: function(cardId) {
+        document.getElementById('cardIdForEditCard').value = cardId;
+        dataHandler.getCard(cardId, (card) => {
+            document.getElementById('new-card-title').value = card.title;
+        });
+    },
+    editCard: function(cardId, cardTitle) {
+        dataHandler.editCard(cardId, cardTitle, (card) => {
+            this.updateCard(card);
+        });
+    },
+    updateCard: function(card) {
+        let cards = document.getElementById('board-' + card.board_id).getElementsByClassName('task');
+        for (let fakeCard of cards) {
+            if (parseInt(fakeCard.dataset.id) === card.id) {
+                fakeCard.getElementsByTagName('span')[0].innerHTML = card.title;
+                break;
+            }
+        }
     }
 };
