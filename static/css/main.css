@@ -31,3 +31,7 @@
     padding: 0;
     margin: 0 0 0 5px;
 }
+
+.alert-secondary {
+    background: rgb(241, 241, 241);
+}

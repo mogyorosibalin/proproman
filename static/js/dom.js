@@ -1,5 +1,6 @@
 // It uses data_handler.js to visualize elements
 let dom = {
+    dragulaEvents: [],
     loadBoards: function() {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards((boards) => {
@@ -9,6 +10,7 @@ let dom = {
     showBoards: function(boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
+        const TYPES = ["danger", "warning", "primary", "success"];
         let boardTemplate = document.getElementById('board-template').innerHTML;
         for (let board of boards) {
             let tempBoardTemplate = boardTemplate;
@@ -25,10 +27,18 @@ let dom = {
                     }
                     tempStatusTemplate = tempStatusTemplate.replace(/titleData/g, title);
                     tempStatusTemplate = tempStatusTemplate.replace(/statusIdData/g, 'status-' + status.id);
+                    tempStatusTemplate = tempStatusTemplate.replace(/cardIdData/g, 'board-' + board.id + '-status-' + status.id);
+                    tempStatusTemplate = tempStatusTemplate.replace(/statusDataset/g, status.id);
+                    tempStatusTemplate = tempStatusTemplate.replace(/boardDataset/g, board.id);
+                    tempStatusTemplate = tempStatusTemplate.replace(/colorData/g, TYPES[status.id - 1]);
                     this.appendToElement(document.getElementById('board-' + board.id).getElementsByClassName('row')[0], tempStatusTemplate);
                 }
             });
             this.loadCards(board.id);
+            let dragulaArray = [];
+            for(let i=1; i<5; i++)
+                dragulaArray.push(document.getElementById('board-' + board.id + '-status-' + String(i)))
+            this.dragulaEvents.push((dragula(dragulaArray)));
         }
     },
     loadCards: function(boardId) {
@@ -40,12 +50,15 @@ let dom = {
     showCards: function(cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
-        const TYPES = ["primary", "success", "danger", "warning", "info", "dark", "secondary", "light"];
         let taskTemplate = document.getElementById('task-template').innerHTML;
+        cards = cards.sort(function (a,b) {
+            return a.order - b.order;
+        });
         for (let card of cards) {
             let tempTaskTemplate = taskTemplate;
             tempTaskTemplate = tempTaskTemplate.replace(/titleData/g, card.title);
-            tempTaskTemplate = tempTaskTemplate.replace(/typeData/g, TYPES[card.status_id - 1]);
+            tempTaskTemplate = tempTaskTemplate.replace(/cardDataset/g, card.id);
+            tempTaskTemplate = tempTaskTemplate.replace(/orderDataset/g, card.order);
             this.appendToElement(document.getElementById('board-' + card.board_id).getElementsByClassName('status-' + card.status_id + '-tasks')[0], tempTaskTemplate);
         }
     },

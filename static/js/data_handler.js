@@ -113,6 +113,23 @@ let dataHandler = {
         this._data.cards.push(newCard);
         this._saveData();
         callback([newCard]);
-    }
+    },
     // here comes more features
+    updateCardStatusOrder: function (target) {
+        let childNodes = target.childNodes;
+        let cards = this._data.cards;
+        let newOrder = 1;
+        for (let childNode of childNodes){
+            let cardId = childNode.dataset.cardid;
+            for (card of cards) {
+                if (card.id === Number(cardId)){
+                    card.order = newOrder;
+                    card.status_id = target.dataset.statusid;
+                }
+            }
+            newOrder++;
+        }
+        this._data.cards = cards;
+        this._saveData();
+    }
 };
