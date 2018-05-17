@@ -23,7 +23,7 @@ let dom = {
                     let tempStatusTemplate = statusTemplate;
                     let title = status.name;
                     if (status.id === 1) {
-                        title += '<button type="button" data-target="#newCardModal" data-toggle="modal" class="btn btn-link btn-sm new-btn" onclick="dom.showNewCardModal(' + board.id + ')">Add new</button>';
+                        title += '<button type="button" data-target="#newCardModal" data-toggle="modal" class="btn btn-outline-danger btn-sm new-btn" onclick="dom.showNewCardModal(' + board.id + ')">New card <i class="fas fa-plus"></i></button>';
                     }
                     tempStatusTemplate = tempStatusTemplate.replace(/titleData/g, title);
                     tempStatusTemplate = tempStatusTemplate.replace(/statusIdData/g, 'status-' + status.id);
