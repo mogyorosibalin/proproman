@@ -81,10 +81,19 @@ let dom = {
     // here comes more features
     addNewBoard: function() {
         let boardTitle = document.getElementById('new-board-title').value;
-        document.getElementById('new-board-title').value = '';
-        dataHandler.createNewBoard(boardTitle, (board) => {
-            this.showBoards(board);
-        });
+        let errorDiv = document.getElementById('newBoardModal').getElementsByClassName('error')[0];
+        if (boardTitle.length < 5) {
+            errorDiv.innerHTML = "The Board title must contain at least 5 characters!";
+            errorDiv.style.display = 'block';
+        } else {
+            errorDiv.innerHTML = "";
+            errorDiv.style.display = 'none';
+            document.getElementById('new-board-title').value = '';
+            document.getElementById('closeBoardModal').click();
+            dataHandler.createNewBoard(boardTitle, (board) => {
+                this.showBoards(board);
+            });
+        }
     },
     showNewCardModal: function(boardId) {
         document.getElementById('boardIdForNewCard').value = boardId;
@@ -93,12 +102,21 @@ let dom = {
         let boardId = parseInt(document.getElementById('boardIdForNewCard').value);
         let cardId = parseInt(document.getElementById('cardIdForEditCard').value);
         let cardTitle = document.getElementById('new-card-title').value;
-        document.getElementById('new-card-title').value = '';
-        if (boardId >= 0) {
-            this.addNewCard(boardId, cardTitle);
-        }
-        if (cardId >= 0) {
-            this.editCard(cardId, cardTitle);
+        let errorDiv = document.getElementById('newCardModal').getElementsByClassName('error')[0];
+        if (cardTitle.length < 5) {
+            errorDiv.innerHTML = "The Card title must contain at least 5 characters!";
+            errorDiv.style.display = 'block';
+        } else {
+            errorDiv.innerHTML = "";
+            errorDiv.style.display = 'none';
+            document.getElementById('new-card-title').value = '';
+            document.getElementById('closeCardModal').click();
+            if (boardId >= 0) {
+                this.addNewCard(boardId, cardTitle);
+            }
+            if (cardId >= 0) {
+                this.editCard(cardId, cardTitle);
+            }
         }
     },
     addNewCard: function(boardId, cardTitle) {
