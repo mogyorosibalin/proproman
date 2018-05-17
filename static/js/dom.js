@@ -43,7 +43,6 @@ let dom = {
     },
     loadCards: function(boardId) {
         // retrieves cards and makes showCards called
-        console.log('asd')
         dataHandler.getCardsByBoardId(boardId, (cards) => {
             this.showCards(cards);
         });
@@ -95,10 +94,10 @@ let dom = {
         let cardId = parseInt(document.getElementById('cardIdForEditCard').value);
         let cardTitle = document.getElementById('new-card-title').value;
         document.getElementById('new-card-title').value = '';
-        if (boardId) {
+        if (boardId !== NaN) {
             this.addNewCard(boardId, cardTitle);
         }
-        if (cardId) {
+        if (cardId !== NaN) {
             this.editCard(cardId, cardTitle);
         }
     },
