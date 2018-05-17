@@ -150,12 +150,33 @@ let dataHandler = {
         });
     },
 
+    deleteBoard: function(boardId, callback) {
+        let board = {};
+        dataHandler.getBoards((boards) => {
+            for (let i = 0; i < boards.length; i++) {
+                if (boards[i].id === boardId) {
+                    board = boards[i];
+                    boards.splice(i, 1);
+                    this.getCards((cards) => {
+                        for (let j = cards.length - 1; j >= 0; j--) {
+                            if (cards[j].board_id === board.id) {
+                                cards.splice(j, 1);
+                            }
+                        }
+                        this._data.cards = cards;
+                    });
+                    break;
+                }
+            }
+            this._data.boards = boards;
+            this._saveData();
+            callback(board)
+        });
+    },
     deleteCardById: function(cardId){
         let cards = this._data.cards;
         let len = this._data.cards.length;
         let boardId = -1;
-        console.log(cards);
-        console.log(len);
         for (let i=0; i<len; i++) {
             if (cards[i].id === Number(cardId)){
                 boardId = cards[i].board_id;
