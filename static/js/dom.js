@@ -94,10 +94,10 @@ let dom = {
         let cardId = parseInt(document.getElementById('cardIdForEditCard').value);
         let cardTitle = document.getElementById('new-card-title').value;
         document.getElementById('new-card-title').value = '';
-        if (boardId !== NaN) {
+        if (boardId >= 0) {
             this.addNewCard(boardId, cardTitle);
         }
-        if (cardId !== NaN) {
+        if (cardId >= 0) {
             this.editCard(cardId, cardTitle);
         }
     },
@@ -114,6 +114,7 @@ let dom = {
         });
     },
     editCard: function(cardId, cardTitle) {
+        document.getElementById('cardIdForEditCard').value = "";
         dataHandler.editCard(cardId, cardTitle, (card) => {
             this.updateCard(card);
         });
