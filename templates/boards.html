@@ -16,12 +16,35 @@
         <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     </head>
     <body>
-        <h1>ProMan</h1>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">ProMan</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" data-toggle="modal" data-target="#newBoardModal">New Board</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <button class="btn btn-link btn-sm" type="button">Log In</button>
+                    <button class="btn btn-primary btn-sm" type="button">Sign Up</button>
+                </div>
+            </div>
+        </nav>
 
         <!-- Add board modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBoardModal">
-            New Board
-        </button>
         <div class="modal fade" id="newBoardModal" tabindex="-1" role="dialog" aria-labelledby="newBoardModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -99,9 +122,7 @@
         <div id="status-template" style="display: none;">
             <div class="col-12 col-xl-3 col-lg-3 col-md-3 status statusIdData">
                 <div class="card">
-                    <div class="card-header alert-colorData">
-                        titleData
-                    </div>
+                    <div class="card-header alert-colorData">titleData</div>
                     <div class="card-body statusIdData-tasks" id="cardIdData" data-boardId="boardDataset" data-statusId="statusDataset"></div>
                 </div>
             </div>
@@ -110,7 +131,10 @@
         <div id="task-template" style="display: none;">
             <div class="task alert alert-secondary" data-cardid="cardDataset" data-order="orderDataset" data-id="idData">
                 <span>titleData</span>
-                <i class="fa fa-pencil-alt" data-target="#newCardModal" data-toggle="modal" onclick="dom.showEditCard(idData);"></i>
+                <div class="buttons">
+                    <i class="fa fa-pencil-alt" data-target="#newCardModal" data-toggle="modal" onclick="dom.showEditCard(idData);"></i>
+                    <i class="fa fa-ban" data-target="#newCardModal" data-toggle="modal" onclick="dom.showDeleteCard(idData);"></i>
+                </div>
             </div>
         </div>
 

@@ -126,5 +126,8 @@ let dom = {
                 break;
             }
         }
+    },
+    showDeleteCard: function(cardId) {
+        alert(cardId);
     }
 };
