@@ -43,6 +43,7 @@ let dom = {
     },
     loadCards: function(boardId) {
         // retrieves cards and makes showCards called
+        console.log('asd')
         dataHandler.getCardsByBoardId(boardId, (cards) => {
             this.showCards(cards);
         });
@@ -128,6 +129,9 @@ let dom = {
         }
     },
     showDeleteCard: function(cardId) {
-        alert(cardId);
+        if (confirm('Are you sure?') === true){
+            dataHandler.deleteCardById(cardId);
+            document.getElementById(cardId).remove();
+        }
     }
 };
