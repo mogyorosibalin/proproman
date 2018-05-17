@@ -129,3 +129,13 @@ body {
 .alert-warning + .card-body { background-color: #FFF9E5; }
 .alert-primary + .card-body { background-color: #E5F2FF; }
 .alert-success + .card-body { background-color: #E6F4E9; }
+
+.btn-board-header {
+    background-color: #eeeeee;
+}
+
+.btn-board-header:hover {
+    transition: background-color 0.15s ease-in-out;
+    background-color: #dddddd;
+}
+
