@@ -129,11 +129,11 @@
         </div>
 
         <div id="task-template" style="display: none;">
-            <div class="task alert alert-secondary" data-cardid="cardDataset" data-order="orderDataset" data-id="idData">
+            <div class="task alert alert-secondary" id="idData" data-cardid="cardDataset" data-order="orderDataset" data-id="idData">
                 <span>titleData</span>
                 <div class="buttons">
                     <i class="fa fa-pencil-alt" data-target="#newCardModal" data-toggle="modal" onclick="dom.showEditCard(idData);"></i>
-                    <i class="fa fa-ban" data-target="#newCardModal" data-toggle="modal" onclick="dom.showDeleteCard(idData);"></i>
+                    <i class="fa fa-ban" onclick="dom.showDeleteCard(idData);"></i>
                 </div>
             </div>
         </div>

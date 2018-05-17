@@ -118,5 +118,5 @@
 
 .alert-danger + .card-body { background-color: #FCEEEF; }
 .alert-warning + .card-body { background-color: #FFF9E5; }
-.alert-info + .card-body { background-color: #E5F2FF; }
+.alert-primary + .card-body { background-color: #E5F2FF; }
 .alert-success + .card-body { background-color: #E6F4E9; }

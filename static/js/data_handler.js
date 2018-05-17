@@ -149,6 +149,7 @@ let dataHandler = {
             }
         });
     },
+
     deleteBoard: function(boardId, callback) {
         let board = {};
         dataHandler.getBoards((boards) => {
@@ -171,5 +172,21 @@ let dataHandler = {
             this._saveData();
             callback(board)
         });
+
+    deleteCardById: function(cardId){
+        let cards = this._data.cards;
+        let len = this._data.cards.length;
+        let boardId = -1;
+        console.log(cards);
+        console.log(len);
+        for (let i=0; i<len; i++) {
+            if (cards[i].id === Number(cardId)){
+                boardId = cards[i].board_id;
+                cards.splice(i, 1)
+                break
+            }
+        }
+        this._data.cards = cards;
+        this._saveData();
     }
 };
