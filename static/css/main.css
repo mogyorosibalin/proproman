@@ -139,3 +139,12 @@ body {
     background-color: #dddddd;
 }
 
+.btn-outline-danger {
+    color: white;
+}
+
+.card-header {
+    font-weight: bold;
+    font-size: larger;
+}
+
