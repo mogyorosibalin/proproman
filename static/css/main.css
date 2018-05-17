@@ -1,3 +1,7 @@
+.navbar .btn {
+    margin-left: 5px;
+}
+
 .board {
     margin: 30px 0;
 }
@@ -35,3 +39,60 @@
 .alert-secondary {
     background: rgb(241, 241, 241);
 }
+
+.status {
+    padding: 0 5px;
+}
+
+.status .card-body {
+    padding: 0 0.5rem;
+}
+
+.status .task, .gu-mirror {
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.25rem 0.5rem 0.6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.gu-mirror {
+    transition: tranform 0.2s ease-in-out;
+    transform: rotateZ(8deg);
+}
+
+.status .task:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+.status .task .buttons {
+    display: flex;
+}
+
+.status .task i {
+    display: none;
+    font-size: 10px;
+    margin: 0;
+    padding: 4px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: background-color 0.3s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.status .task i:hover {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.status .task:hover i {
+    display: inline;
+    opacity: 1;
+}
+
+.alert-danger + .card-body { background-color: #FCEEEF; }
+.alert-warning + .card-body { background-color: #FFF9E5; }
+.alert-info + .card-body { background-color: #E5F2FF; }
+.alert-success + .card-body { background-color: #E6F4E9; }
