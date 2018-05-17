@@ -14,7 +14,7 @@ let dom = {
         let boardTemplate = document.getElementById('board-template').innerHTML;
         for (let board of boards) {
             let tempBoardTemplate = boardTemplate;
-            tempBoardTemplate = tempBoardTemplate.replace(/idData/g, 'board-' + board.id);
+            tempBoardTemplate = tempBoardTemplate.replace(/idData/g, board.id);
             tempBoardTemplate = tempBoardTemplate.replace(/titleData/g, board.title);
             this.appendToElement(document.getElementById('boards'), tempBoardTemplate);
             dataHandler.getStatuses((statuses) => {
@@ -127,6 +127,19 @@ let dom = {
                 break;
             }
         }
+    },
+    showDeleteBoard: function(boardId) {
+        dataHandler.getBoard(boardId, (board) => {
+            if (confirm('Do you really want to delete this board: ' + board.title + '?')) {
+                dataHandler.deleteBoard(boardId, (deletedBoard) => {
+                    document.getElementById('board-' + deletedBoard.id).remove();
+                });
+            } else {
+                document.getElementById('board-' + boardId + '-heading').click();
+            }
+        });
+
+
     },
     showDeleteCard: function(cardId) {
         if (confirm('Are you sure?') === true){

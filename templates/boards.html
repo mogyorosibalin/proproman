@@ -103,15 +103,15 @@
         <div class="container" id="boards"></div>
 
         <div id="board-template" style="display: none;">
-            <div class="card board" id="idData">
-                <div class="card-header" id="idData-heading">
+            <div class="card board" id="board-idData">
+                <div class="card-header" id="board-idData-heading">
                     <h4 class="h4">
-                        <button class="btn btn-link collapsedData" type="button" data-toggle="collapse" data-target="#idData-collapse" aria-expanded="true" aria-controls="idData-collapse">
-                            titleData
+                        <button class="btn btn-link collapsedData" type="button" data-toggle="collapse" data-target="#board-idData-collapse" aria-expanded="true" aria-controls="board-idData-collapse">
+                            titleData<i class="fa fa-ban delete-board" onclick="dom.showDeleteBoard(idData)"></i>
                         </button>
                     </h4>
                 </div>
-                <div id="idData-collapse" class="collapse showData" aria-labelledby="idData-collapse" data-parent="#boards">
+                <div id="board-idData-collapse" class="collapse showData" aria-labelledby="board-idData-collapse" data-parent="#boards">
                     <div class="card-body">
                         <div class="row"></div>
                     </div>
