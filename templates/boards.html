@@ -55,10 +55,11 @@
                             </div>
                             <input type="text" id="new-board-title" class="form-control" placeholder="Board title" aria-label="Board title" aria-describedby="basic-addon1">
                         </div>
+                        <strong class="error" style="display: none;"></strong>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dom.addNewBoard()">Add New</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeBoardModal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="dom.addNewBoard()">Add New</button>
                     </div>
                 </div>
             </div>
@@ -84,10 +85,11 @@
                             </div>
                             <input type="text" id="new-card-title" class="form-control" placeholder="Card title" aria-label="Card title" aria-describedby="basic-addon1">
                         </div>
+                        <strong class="error" style="display: none;"></strong>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="dom.cardHandler()">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCardModal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="dom.cardHandler()">Save</button>
                     </div>
                 </div>
             </div>
