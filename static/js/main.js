@@ -8,3 +8,9 @@ function init() {
 }
 
 init();
+
+for (let dragulaEvent of dom.dragulaEvents){
+    dragulaEvent.on('drop', (element, target) => {
+        dataHandler.updateCardStatusOrder(target);
+    });
+}

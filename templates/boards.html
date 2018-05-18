@@ -6,13 +6,137 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ProMan</title>
 
+        <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css"> 
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="{{ url_for('static', filename='js/sample_data.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
     </head>
     <body>
-        <h1>ProMan</h1>
-        <div id="boards">Boards are loading...</div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="/">ProMan</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" data-toggle="modal" data-target="#newBoardModal">
+                                NEW BOARD
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <button class="btn btn-link btn-sm" type="button">Log In</button>
+                    <button class="btn btn-primary btn-sm" type="button">Sign Up</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Add board modal -->
+        <div class="modal fade" id="newBoardModal" tabindex="-1" role="dialog" aria-labelledby="newBoardModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newBoardModalLabel">Add new board</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Board</span>
+                            </div>
+                            <input type="text" id="new-board-title" class="form-control" placeholder="Board title" aria-label="Board title" aria-describedby="basic-addon1">
+                        </div>
+                        <strong class="error" style="display: none;"></strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeBoardModal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="dom.addNewBoard()">Add New</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add board modal end -->
+
+        <!-- Add card modal -->
+        <div class="modal fade" id="newCardModal" tabindex="-1" role="dialog" aria-labelledby="newCardModalLabel" aria-hidden="true">
+            <input type="hidden" id="boardIdForNewCard" value="">
+            <input type="hidden" id="cardIdForEditCard" value="">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newCardModalLabel">Add new card</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Card</span>
+                            </div>
+                            <input type="text" id="new-card-title" class="form-control" placeholder="Card title" aria-label="Card title" aria-describedby="basic-addon1">
+                        </div>
+                        <strong class="error" style="display: none;"></strong>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeCardModal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="dom.cardHandler()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add card modal end -->
+
+        <div class="container" id="boards"></div>
+
+        <div id="board-template" style="display: none;">
+            <div class="card board" id="board-idData">
+                <div class="card-header" id="board-idData-heading">
+                    <h4 class="h4">
+                        <button class="btn btn-board-header collapsedData" type="button" data-toggle="collapse" data-target="#board-idData-collapse" aria-expanded="true" aria-controls="board-idData-collapse">
+                            titleData<i class="fa fa-ban delete-board" onclick="dom.showDeleteBoard(idData)"></i>
+                        </button>
+                    </h4>
+                </div>
+                <div id="board-idData-collapse" class="collapse showData" aria-labelledby="board-idData-collapse" data-parent="#boards">
+                    <div class="card-body">
+                        <div class="row"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="status-template" style="display: none;">
+            <div class="col-12 col-xl-3 col-lg-3 col-md-3 status statusIdData">
+                <div class="card">
+                    <div class="card-header alert-colorData">titleData</div>
+                    <div class="card-body statusIdData-tasks" id="cardIdData" data-boardId="boardDataset" data-statusId="statusDataset"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="task-template" style="display: none;">
+            <div class="task alert alert-secondary" id="idData" data-cardid="cardDataset" data-order="orderDataset" data-id="idData">
+                <span>titleData</span>
+                <div class="buttons">
+                    <i class="fa fa-pencil-alt" data-target="#newCardModal" data-toggle="modal" onclick="dom.showEditCard(idData);"></i>
+                    <i class="fa fa-ban" onclick="dom.showDeleteCard(idData);"></i>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js'></script>
     </body>
 </html>
