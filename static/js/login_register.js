@@ -1,6 +1,7 @@
 function loadEventListeners() {
     // Here comes the login and register form submitting with ajax.
     $('#registerForm').on('submit', function(event) {
+        let $this = $(this);
         event.preventDefault();
         $.ajax({
             type: 'post',
@@ -12,7 +13,12 @@ function loadEventListeners() {
             },
             dataType: 'json',
             success: function(data) {
-                // console.log(data);
+                $this.find('input[type=password]').val("");
+                let messagesString = "";
+                for (let row of data.messages) {
+                    messagesString += `<div class="${row.type}">${row.message}</div>`;
+                }
+                $this.find('.messages').html(messagesString);
             }
         });
     });
