@@ -50,3 +50,9 @@ def delete_board(board_id):
     connection_manager.execute_dml_statement('''
         UPDATE boards SET deleted = TRUE WHERE id = %(board_id)s;
     ''', {'board_id': board_id})
+
+
+def delete_card(card_id):
+    connection_manager.execute_dml_statement('''
+        UPDATE cards SET deleted = TRUE WHERE id = %(card_id)s;
+    ''', {'card_id': card_id})

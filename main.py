@@ -63,6 +63,13 @@ def delete_board():
     return jsonify({})
 
 
+@app.route('/delete-card', methods=['POST'])
+def delete_card():
+    card_id = request.form["cardId"]
+    queries.delete_card(card_id)
+    return jsonify({})
+
+
 def main():
     app.run(debug=True)
 

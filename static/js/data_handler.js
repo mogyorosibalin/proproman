@@ -190,7 +190,7 @@ let dataHandler = {
                    boardId: boardId
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                 }
             });
             callback(board)
@@ -203,11 +203,22 @@ let dataHandler = {
         for (let i=0; i<len; i++) {
             if (cards[i].id === Number(cardId)){
                 boardId = cards[i].board_id;
-                cards.splice(i, 1)
-                break
+                cards.splice(i, 1);
+                break;
             }
         }
+        $.ajax({
+            type: 'post',
+            url: '/delete-card',
+            data: {
+               cardId: cardId
+            },
+            success: function(data) {
+                // console.log(data);
+            }
+        });
         this._data.cards = cards;
         this._saveData();
+
     }
 };
