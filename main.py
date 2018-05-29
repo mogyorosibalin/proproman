@@ -55,6 +55,7 @@ def login():
         else:
             return jsonify({'message': 'Incorrect username or password', 'type': 'error'})
 
+
 @app.route('/add-board', methods=['POST'])
 def add_board():
     new_board_title = request.form['title']
