@@ -64,13 +64,21 @@ def add_board():
 
 @app.route('/add-card', methods=['POST'])
 def add_card():
-    print('asd')
     new_card_title = request.form['title']
     new_card_board_id = request.form['board_id']
     new_card_status_id = request.form['status_id']
     return jsonify({'newId': queries.add_new_card(new_card_title, new_card_board_id, new_card_status_id, session['user']['id'])[0]})
 
-  
+
+@app.route('/update-card', methods=['POST'])
+def update_card():
+    card_id = request.form['card_id']
+    order = request.form['order']
+    status_id = request.form['status_id']
+    queries.update_card(card_id, order, status_id)
+    return jsonify({})
+
+
 @app.route('/delete-board', methods=['POST'])
 def delete_board():
     board_id = request.form["boardId"]

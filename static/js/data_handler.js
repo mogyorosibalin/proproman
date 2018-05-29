@@ -111,7 +111,6 @@ let dataHandler = {
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
         let thisObject = this;
-        console.log('asd');
         $.ajax({
             type: 'post',
             url: '/add-card',
@@ -132,21 +131,31 @@ let dataHandler = {
     },
     // here comes more features
     updateCardStatusOrder: function (target) {
+        let thisObject = this;
         let childNodes = target.childNodes;
         let cards = this._data.cards;
         let newOrder = 1;
+        console.log('ads');
         for (let childNode of childNodes){
             let cardId = childNode.dataset.cardid;
-            for (card of cards) {
-                if (card.id === Number(cardId)){
-                    card.order = newOrder;
-                    card.status_id = target.dataset.statusid;
+            $.ajax({
+                type: 'post',
+                url: '/update-card',
+                data: {'card_id': cardId, 'order': newOrder, 'status_id': target.dataset.statusid},
+                dataType: 'json',
+                success: function () {
+                    for (let card of cards) {
+                        if (card.id === Number(cardId)){
+                            card.order = newOrder;
+                            card.status_id = target.dataset.statusid;
+                        }
+                        thisObject._data.cards = cards;
+                        thisObject._saveData();
+                    }
                 }
-            }
+            });
             newOrder++;
         }
-        this._data.cards = cards;
-        this._saveData();
     },
 
     getCards: function(callback) {
