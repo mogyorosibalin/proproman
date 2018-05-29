@@ -23,6 +23,8 @@ let dataHandler = {
                     callback();
                 }
             });
+        } else {
+            callback();
         }
     },
     _saveData: function() {
