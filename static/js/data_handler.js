@@ -90,60 +90,72 @@ let dataHandler = {
     },
     createNewBoard: function(boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
-        let boards = this._data.boards;
-        let len = boards.length;
-        let newId = 0;
-        for (let i=0; i<len; i++){
-            if (boards[i].id >= newId){
-                newId = boards[i].id + 1;
+        let thisObject = this;
+        $.ajax({
+            type: 'post',
+            url: '/add-board',
+            data: {'title': boardTitle},
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.newId);
+                let newBoard = {
+                    "id": data.newId,
+                    "title": boardTitle,
+                };
+                thisObject._data.boards.push(newBoard);
+                thisObject._saveData();
+                callback([newBoard]);
             }
-        }
-        let newBoard = {
-            "id": newId,
-            "title": boardTitle,
-            "is_active": false
-        };
-        this._data.boards.push(newBoard);
-        this._saveData();
-        callback([newBoard]);
+        });
     },
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
-        let cards = this._data.cards;
-        let len = cards.length;
-        let newId = 0;
-        for (let i=0; i<len; i++){
-            if (cards[i].id >= newId){
-                newId = cards[i].id + 1;
+        let thisObject = this;
+        $.ajax({
+            type: 'post',
+            url: '/add-card',
+            data: {'title': cardTitle, 'board_id': boardId, 'status_id': statusId},
+            dataType: 'json',
+            success: function (data) {
+                let newCard = {
+                    "id": data.newId,
+                    "title": cardTitle,
+                    "board_id": boardId,
+                    "status_id": statusId
+                };
+                thisObject._data.cards.push(newCard);
+                thisObject._saveData();
+                callback([newCard]);
             }
-        }
-        let newCard = {
-            "id": newId,
-            "title": cardTitle,
-            "board_id": boardId,
-            "status_id": statusId
-        };
-        this._data.cards.push(newCard);
-        this._saveData();
-        callback([newCard]);
+        });
     },
     // here comes more features
     updateCardStatusOrder: function (target) {
+        let thisObject = this;
         let childNodes = target.childNodes;
         let cards = this._data.cards;
         let newOrder = 1;
+        console.log('ads');
         for (let childNode of childNodes){
             let cardId = childNode.dataset.cardid;
-            for (card of cards) {
-                if (card.id === Number(cardId)){
-                    card.order = newOrder;
-                    card.status_id = target.dataset.statusid;
+            $.ajax({
+                type: 'post',
+                url: '/update-card',
+                data: {'card_id': cardId, 'order': newOrder, 'status_id': target.dataset.statusid},
+                dataType: 'json',
+                success: function () {
+                    for (let card of cards) {
+                        if (card.id === Number(cardId)){
+                            card.order = newOrder;
+                            card.status_id = target.dataset.statusid;
+                        }
+                        thisObject._data.cards = cards;
+                        thisObject._saveData();
+                    }
                 }
-            }
+            });
             newOrder++;
         }
-        this._data.cards = cards;
-        this._saveData();
     },
 
     getCards: function(callback) {
@@ -183,6 +195,16 @@ let dataHandler = {
             }
             this._data.boards = boards;
             this._saveData();
+            $.ajax({
+                type: 'post',
+                url: '/delete-board',
+                data: {
+                   boardId: boardId
+                },
+                success: function(data) {
+                    // console.log(data);
+                }
+            });
             callback(board)
         });
     },
@@ -193,11 +215,22 @@ let dataHandler = {
         for (let i=0; i<len; i++) {
             if (cards[i].id === Number(cardId)){
                 boardId = cards[i].board_id;
-                cards.splice(i, 1)
-                break
+                cards.splice(i, 1);
+                break;
             }
         }
+        $.ajax({
+            type: 'post',
+            url: '/delete-card',
+            data: {
+               cardId: cardId
+            },
+            success: function(data) {
+                // console.log(data);
+            }
+        });
         this._data.cards = cards;
         this._saveData();
+
     }
 };
