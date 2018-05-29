@@ -32,6 +32,13 @@ def register():
     return jsonify({'messages': messages})
 
 
+@app.route("/get-data", methods=['POST'])
+def get_boards():
+    user_id = session["user"]["id"]
+    data = queries.get_boards_data(user_id)
+    return jsonify(data)
+
+
 @app.route("/login", methods=['POST'])
 def login():
     login_data = request.form.to_dict()

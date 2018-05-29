@@ -11,7 +11,17 @@ let dataHandler = {
         // loads data from local storage, parses it and put into this._data property
         this._data = JSON.parse(localStorage.getItem(this.keyInLocalStorage));
         if (!this._data) {
-            this._data = sampleData;
+            let object = this;
+            $.ajax({
+                type: 'post',
+                url: '/get-data',
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    localStorage.setItem(object.keyInLocalStorage, JSON.stringify(object._data));
+                    object._data = data;
+                }
+            });
         }
     },
     _saveData: function() {
