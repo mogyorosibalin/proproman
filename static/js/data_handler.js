@@ -97,8 +97,9 @@ let dataHandler = {
             data: {'title': boardTitle},
             dataType: 'json',
             success: function (data) {
+                console.log(data.newId);
                 let newBoard = {
-                    "id": data.newID,
+                    "id": data.newId,
                     "title": boardTitle,
                 };
                 thisObject._data.boards.push(newBoard);
@@ -106,27 +107,28 @@ let dataHandler = {
                 callback([newBoard]);
             }
         });
-
     },
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
-        let cards = this._data.cards;
-        let len = cards.length;
-        let newId = 0;
-        for (let i=0; i<len; i++){
-            if (cards[i].id >= newId){
-                newId = cards[i].id + 1;
+        let thisObject = this;
+        console.log('asd');
+        $.ajax({
+            type: 'post',
+            url: '/add-card',
+            data: {'title': cardTitle, 'board_id': boardId, 'status_id': statusId},
+            dataType: 'json',
+            success: function (data) {
+                let newCard = {
+                    "id": data.newId,
+                    "title": cardTitle,
+                    "board_id": boardId,
+                    "status_id": statusId
+                };
+                thisObject._data.cards.push(newCard);
+                thisObject._saveData();
+                callback([newCard]);
             }
-        }
-        let newCard = {
-            "id": newId,
-            "title": cardTitle,
-            "board_id": boardId,
-            "status_id": statusId
-        };
-        this._data.cards.push(newCard);
-        this._saveData();
-        callback([newCard]);
+        });
     },
     // here comes more features
     updateCardStatusOrder: function (target) {
