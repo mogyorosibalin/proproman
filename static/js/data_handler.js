@@ -90,22 +90,23 @@ let dataHandler = {
     },
     createNewBoard: function(boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
-        let boards = this._data.boards;
-        let len = boards.length;
-        let newId = 0;
-        for (let i=0; i<len; i++){
-            if (boards[i].id >= newId){
-                newId = boards[i].id + 1;
+        let thisObject = this;
+        $.ajax({
+            type: 'post',
+            url: '/add-board',
+            data: {'title': boardTitle},
+            dataType: 'json',
+            success: function (data) {
+                let newBoard = {
+                    "id": data.newID,
+                    "title": boardTitle,
+                };
+                thisObject._data.boards.push(newBoard);
+                thisObject._saveData();
+                callback([newBoard]);
             }
-        }
-        let newBoard = {
-            "id": newId,
-            "title": boardTitle,
-            "is_active": false
-        };
-        this._data.boards.push(newBoard);
-        this._saveData();
-        callback([newBoard]);
+        });
+
     },
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
