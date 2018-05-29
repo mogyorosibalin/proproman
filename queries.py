@@ -42,8 +42,17 @@ def get_boards_data(user_id):
     ''', {'user_id': user_id})
     return data
 
-
+  
 def add_new_board(board_title, user_id):
     return connection_manager.execute_dml_statement('''
         INSERT INTO boards (title, user_id) VALUES (%(board_title)s, %(user_id)s) RETURNING id;
     ''', {'board_title': board_title, 'user_id': user_id})
+
+  
+def delete_board(board_id):
+    connection_manager.execute_dml_statement('''
+        UPDATE cards SET deleted = TRUE WHERE board_id = %(board_id)s;
+    ''', {'board_id': board_id})
+    connection_manager.execute_dml_statement('''
+        UPDATE boards SET deleted = TRUE WHERE id = %(board_id)s;
+    ''', {'board_id': board_id})

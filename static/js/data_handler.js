@@ -184,6 +184,16 @@ let dataHandler = {
             }
             this._data.boards = boards;
             this._saveData();
+            $.ajax({
+                type: 'post',
+                url: '/delete-board',
+                data: {
+                   boardId: boardId
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
             callback(board)
         });
     },
