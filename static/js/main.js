@@ -1,9 +1,11 @@
 // This function is to initialize the application
 function init() {
     // init data
-    dataHandler.init();
+    dataHandler.init(function() {
+        dom.loadBoards();
+    });
     // loads the boards to the screen
-    dom.loadBoards();
+
 
 }
 
