@@ -33,7 +33,7 @@ def get_boards_data(user_id):
           FROM boards
           WHERE deleted = FALSE AND user_id = %(user_id)s
           ORDER BY boards.id;
-    ''', {'user_id', user_id})
+    ''', {'user_id': user_id})
     data["cards"] = connection_manager.execute_select('''
         SELECT cards.id, cards.board_id, cards.status_id, cards.title, cards."order"
           FROM cards
