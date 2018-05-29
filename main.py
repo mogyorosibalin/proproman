@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect, jsonify
+from flask import Flask, render_template, session, request, redirect, jsonify, url_for
 import queries
 import util
 app = Flask(__name__)
@@ -54,6 +54,12 @@ def login():
             return jsonify({'login': 'login_success'})
         else:
             return jsonify({'message': 'Incorrect username or password', 'type': 'error'})
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('boards'))
 
 
 def main():

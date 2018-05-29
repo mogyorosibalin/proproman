@@ -50,6 +50,11 @@ function loadEventListeners() {
     });
 }
 
+function logout() {
+    localStorage.clear();
+    window.location.replace("logout");
+}
+
 window.onload = function() {
     loadEventListeners();
 };
