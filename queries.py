@@ -48,6 +48,12 @@ def add_new_board(board_title, user_id):
         INSERT INTO boards (title, user_id) VALUES (%(board_title)s, %(user_id)s) RETURNING id;
     ''', {'board_title': board_title, 'user_id': user_id})
 
+
+def add_new_card(card_title, board_id, status_id, user_id):
+    return connection_manager.execute_dml_statement('''
+        INSERT INTO cards (title, board_id, status_id, user_id) VALUES (%(card_title)s, %(board_id)s, %(status_id)s, %(user_id)s) RETURNING id;
+    ''', {'card_title': card_title, 'board_id': board_id, 'status_id': status_id, 'user_id': user_id})
+
   
 def delete_board(board_id):
     connection_manager.execute_dml_statement('''

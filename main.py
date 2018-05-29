@@ -55,10 +55,20 @@ def login():
         else:
             return jsonify({'message': 'Incorrect username or password', 'type': 'error'})
 
+
 @app.route('/add-board', methods=['POST'])
 def add_board():
     new_board_title = request.form['title']
     return jsonify({'newId': queries.add_new_board(new_board_title, session['user']['id'])[0]})
+
+
+@app.route('/add-card', methods=['POST'])
+def add_card():
+    print('asd')
+    new_card_title = request.form['title']
+    new_card_board_id = request.form['board_id']
+    new_card_status_id = request.form['status_id']
+    return jsonify({'newId': queries.add_new_card(new_card_title, new_card_board_id, new_card_status_id, session['user']['id'])[0]})
 
   
 @app.route('/delete-board', methods=['POST'])
