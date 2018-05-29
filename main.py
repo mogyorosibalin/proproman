@@ -1,5 +1,6 @@
-from flask import Flask, render_template, session, request, jsonify
+from flask import Flask, render_template, session, request, redirect, jsonify
 import queries
+import util
 app = Flask(__name__)
 
 app.secret_key = "some_random_secret_key_for_proman_sprint_2"
@@ -29,6 +30,22 @@ def register():
         queries.add_new_user(new_user)
         messages.append({'message': 'You registered successfully! You can log in now!', 'type': 'success'})
     return jsonify({'messages': messages})
+
+
+@app.route("/login", methods=['POST'])
+def login():
+    login_data = request.form.to_dict()
+    if not len(queries.get_user_by_name(login_data["username"])):
+        return jsonify({'message': 'Incorrect username or password', 'type': 'error'})
+    else:
+        hashed_password = queries.get_passord_by_username(login_data['username'])[0]['password']
+        print(hashed_password)
+        if util.verify_password(login_data['password'], hashed_password):
+            session['user']['username'] = login_data["username"]
+            session['user']['id'] = queries.get_user_id_by_username(login_data['username'])[0]['id']
+            return jsonify({'login': 'login_success'})
+        else:
+            return jsonify({'message': 'Incorrect username or password', 'type': 'error'})
 
 
 def main():
