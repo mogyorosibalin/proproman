@@ -54,7 +54,13 @@ def add_new_card(card_title, board_id, status_id, user_id):
         INSERT INTO cards (title, board_id, status_id, user_id) VALUES (%(card_title)s, %(board_id)s, %(status_id)s, %(user_id)s) RETURNING id;
     ''', {'card_title': card_title, 'board_id': board_id, 'status_id': status_id, 'user_id': user_id})
 
-  
+
+def update_card(card_id, order, status_id):
+    return connection_manager.execute_dml_statement('''
+        UPDATE cards SET "order"=%(order)s, status_id=%(status_id)s WHERE id=%(card_id)s;
+    ''', {'order': order, 'status_id': status_id, 'card_id': card_id})
+
+
 def delete_board(board_id):
     connection_manager.execute_dml_statement('''
         UPDATE cards SET deleted = TRUE WHERE board_id = %(board_id)s;
