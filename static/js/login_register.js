@@ -1,26 +1,53 @@
 function loadEventListeners() {
     // Here comes the login and register form submitting with ajax.
-    document.getElementById('login').addEventListener('click', login, false);
 
-}
+    $('#registerForm').on('submit', function(event) {
+        let $this = $(this);
+        event.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: '/register',
+            data: {
+                username: $(this).find('input[name=username]').val(),
+                password: $(this).find('input[name=password]').val(),
+                passwordAgain: $(this).find('input[name=passwordAgain]').val()
+            },
+            dataType: 'json',
+            success: function(data) {
+                $this.find('input[type=password]').val("");
+                let messagesString = "";
+                for (let row of data.messages) {
+                    messagesString += `<div class="${row.type}">${row.message}</div>`;
+                }
+                $this.find('.messages').html(messagesString);
+            }
+        });
+    });
 
-function login (e) {
-    e.preventDefault();
-    let username = e.target.form[0].value;
-    let password = e.target.form[1].value;
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/login');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            alert(xhr.response);
-        }
-        else if (xhr.status !== 200) {
-            alert('Request failed.  Returned status of ' + xhr.status);
-        }
-    };
-    xhr.send(encodeURI('username='+username+'&password='+password))
-
+    $('#loginForm').on('submit', function(event) {
+        let $this = $(this);
+        event.preventDefault();
+        $.ajax({
+            type: 'post',
+            url: '/login',
+            data: {
+                username: $(this).find('input[name=username]').val(),
+                password: $(this).find('input[name=password]').val(),
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $this.find('input[type=password]').val("");
+                if (data.login === 'login_success'){
+                    location.reload();
+                }
+                else {
+                    let messagesString = `<div class="${data.type}">${data.message}</div>`;
+                    $this.find('.messages').html(messagesString);
+                }
+            }
+        });
+    });
 }
 
 window.onload = function() {
