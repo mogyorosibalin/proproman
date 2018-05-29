@@ -56,6 +56,13 @@ def login():
             return jsonify({'message': 'Incorrect username or password', 'type': 'error'})
 
 
+@app.route('/delete-board', methods=['POST'])
+def delete_board():
+    board_id = request.form["boardId"]
+    queries.delete_board(board_id)
+    return jsonify({})
+
+
 def main():
     app.run(debug=True)
 

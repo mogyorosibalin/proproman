@@ -41,3 +41,12 @@ def get_boards_data(user_id):
           ORDER BY cards."order";
     ''', {'user_id': user_id})
     return data
+
+
+def delete_board(board_id):
+    connection_manager.execute_dml_statement('''
+        UPDATE cards SET deleted = TRUE WHERE board_id = %(board_id)s;
+    ''', {'board_id': board_id})
+    connection_manager.execute_dml_statement('''
+        UPDATE boards SET deleted = TRUE WHERE id = %(board_id)s;
+    ''', {'board_id': board_id})
