@@ -65,7 +65,8 @@ def logout():
 @app.route('/add-board', methods=['POST'])
 def add_board():
     new_board_title = request.form['title']
-    return jsonify({'newId': queries.add_new_board(new_board_title, session['user']['id'])[0]})
+    return jsonify({'newId': queries.add_new_board(new_board_title, session['user']['id'])[0],
+                    'message': '"' + new_board_title + '" created successfully!'})
 
 
 @app.route('/add-card', methods=['POST'])
@@ -96,14 +97,14 @@ def edit_card():
 def delete_board():
     board_id = request.form["boardId"]
     queries.delete_board(board_id)
-    return jsonify({})
+    return jsonify({"message": 'Board deleted successfully!'})
 
 
 @app.route('/delete-card', methods=['POST'])
 def delete_card():
     card_id = request.form["cardId"]
     queries.delete_card(card_id)
-    return jsonify({})
+    return jsonify({"message": 'Card deleted successfully!'})
 
 
 def main():

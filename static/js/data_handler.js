@@ -90,6 +90,7 @@ let dataHandler = {
     },
     createNewBoard: function(boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
+        $('.loading-alert').addClass('active');
         let thisObject = this;
         $.ajax({
             type: 'post',
@@ -97,20 +98,23 @@ let dataHandler = {
             data: {'title': boardTitle},
             dataType: 'json',
             success: function (data) {
-                console.log(data.newId);
+                console.log(data);
                 let newBoard = {
                     "id": data.newId,
                     "title": boardTitle,
                 };
                 thisObject._data.boards.push(newBoard);
                 thisObject._saveData();
+                $('.loading-alert').removeClass('active');
                 callback([newBoard]);
+                showSuccessMessage(data.message);
             }
         });
     },
     createNewCard: function(cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data
         let thisObject = this;
+        $('.loading-alert').addClass('active');
         $.ajax({
             type: 'post',
             url: '/add-card',
@@ -125,7 +129,9 @@ let dataHandler = {
                 };
                 thisObject._data.cards.push(newCard);
                 thisObject._saveData();
+                $('.loading-alert').removeClass('active');
                 callback([newCard]);
+                showSuccessMessage(data.message);
             }
         });
     },
@@ -135,7 +141,7 @@ let dataHandler = {
         let childNodes = target.childNodes;
         let cards = this._data.cards;
         let newOrder = 1;
-        console.log('ads');
+        $('.loading-alert').addClass('active');
         for (let childNode of childNodes){
             let cardId = childNode.dataset.cardid;
             $.ajax({
@@ -151,6 +157,7 @@ let dataHandler = {
                         }
                         thisObject._data.cards = cards;
                         thisObject._saveData();
+                        $('.loading-alert').removeClass('active');
                     }
                 }
             });
@@ -181,6 +188,7 @@ let dataHandler = {
                         }
                     });
                     callback(cards[i]);
+                    showSuccessMessage(data.message);
                     break;
                 }
             }
@@ -214,7 +222,7 @@ let dataHandler = {
                    boardId: boardId
                 },
                 success: function(data) {
-                    // console.log(data);
+                    showSuccessMessage(data.message);
                 }
             });
             callback(board)
@@ -238,7 +246,7 @@ let dataHandler = {
                cardId: cardId
             },
             success: function(data) {
-                // console.log(data);
+                showSuccessMessage(data.message);
             }
         });
         this._data.cards = cards;

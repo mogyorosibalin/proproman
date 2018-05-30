@@ -151,3 +151,91 @@ body {
 .error {
     color: red;
 }
+
+
+.loading-alert {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: -150px;
+    opacity: 0;
+    right: 20px;
+    width: 250px;
+    height: 150px;
+    background-color: #dedede;
+    border: 3px solid #cdcdcd;
+    transition: all 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+.loading-alert.active {
+    opacity: 1;
+    top: 80px;
+}
+
+.loading-alert .spinner {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #fefefe;
+    border-top-color: darkred;
+    animation: spinning 0.8s linear infinite;
+}
+
+.loading-alert .title {
+    font-size: 18px;
+    font-weight: 300;
+    margin: 3px 0 0 0;
+    padding: 0;
+}
+
+@keyframes spinning {
+    0% {
+        transform: rotate(0deg);
+    }
+    70% {
+        transform: rotate(210deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.success-message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 80px;
+    opacity: 0;
+    right: -200px;
+    width: 320px;
+    height: 120px;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: lightgreen;
+    border: 2px solid green;
+    color: #333;
+    font-size: 16px;
+    transition: all 0.4s ease-in-out;
+    pointer-events: none;
+}
+
+.success-message.active {
+    opacity: 1;
+    right: 20px;
+}
+
+.success-message i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.success-message p {
+    padding: 0;
+    margin: 0;
+}
