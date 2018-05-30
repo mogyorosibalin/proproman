@@ -175,6 +175,18 @@ let dataHandler = {
                 if (cards[i].id === cardId) {
                     cards[i].title = cardTitle;
                     this._saveData();
+                    $.ajax({
+                        type: 'post',
+                        url: '/edit-card',
+                        data: {
+                            cardId: cardId,
+                            cardTitle: cardTitle,
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+
+                        }
+                    });
                     callback(cards[i]);
                     showSuccessMessage(data.message);
                     break;

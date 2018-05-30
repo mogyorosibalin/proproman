@@ -86,6 +86,13 @@ def update_card():
     return jsonify({})
 
 
+@app.route('/edit-card', methods=['POST'])
+def edit_card():
+    edited_card = request.form.to_dict()
+    queries.edit_card(edited_card)
+    return jsonify({})
+
+
 @app.route('/delete-board', methods=['POST'])
 def delete_board():
     board_id = request.form["boardId"]
