@@ -61,6 +61,12 @@ def update_card(card_id, order, status_id):
     ''', {'order': order, 'status_id': status_id, 'card_id': card_id})
 
 
+def edit_card(edited_card):
+    connection_manager.execute_dml_statement('''
+        UPDATE cards SET title = %(title)s WHERE id = %(id)s;
+    ''', {'title': edited_card["cardTitle"], 'id': edited_card["cardId"]})
+
+
 def delete_board(board_id):
     connection_manager.execute_dml_statement('''
         UPDATE cards SET deleted = TRUE WHERE board_id = %(board_id)s;
