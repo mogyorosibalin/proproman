@@ -262,3 +262,8 @@ body {
     margin: 30px 0 30px;
     color: red;
 }
+
+.navbar-title {
+    font-size: large;
+    color: white;
+}
