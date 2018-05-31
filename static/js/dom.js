@@ -62,6 +62,7 @@ let dom = {
             tempTaskTemplate = tempTaskTemplate.replace(/orderDataset/g, card.order);
             this.appendToElement(document.getElementById('board-' + card.board_id).getElementsByClassName('status-' + card.status_id + '-tasks')[0], tempTaskTemplate);
         }
+        this.showGetStarted();
     },
     appendToElement: function(elementToExtend, textToAppend, prepend = false) {
         // function to append new DOM elements (represented by a string) to an existing DOM element
@@ -163,6 +164,23 @@ let dom = {
         if (confirm('Are you sure?') === true){
             dataHandler.deleteCardById(cardId);
             document.getElementById(cardId).remove();
+        }
+    },
+    showUsername: function (username) {
+        document.getElementById('username').innerHTML = 'You are logged in as ' + username;
+    },
+    showGetStarted: function (show=null) {
+        console.log(show);
+        if (show === null){
+            dataHandler.getStarted( (show) => {this.showGetStarted(show)})
+        }
+        else if (show) {
+            document.getElementById('get-started').innerHTML = 'Click on <span>NEW BOARD\n '+
+                                                                '<i class=\"fas fa-plus\"></i></span>'+
+                                                                ' to create a new board';
+        }
+        else {
+           document.getElementById('get-started').style.display = 'none'
         }
     }
 };

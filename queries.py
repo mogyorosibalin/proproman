@@ -7,6 +7,11 @@ def get_user_by_name(username):
                                              {'username': username})
 
 
+def get_email_ids_by_email(email):
+    return connection_manager.execute_select('SELECT id FROM users WHERE email = %(email)s;',
+                                             {'email': email})
+
+
 def get_passord_by_username(username):
     return connection_manager.execute_select('SELECT password FROM users WHERE username = %(username)s;',
                                              {'username': username})
@@ -19,8 +24,20 @@ def get_user_id_by_username(username):
 
 def add_new_user(user):
     return connection_manager.execute_dml_statement('''
-        INSERT INTO users (username, password) VALUES(%(username)s, %(password)s);
-    ''', {'username': user["username"], 'password': util.hash_password(user["password"])})
+        INSERT INTO users (username, password, email, activation_code) VALUES(%(username)s, %(password)s, %(email)s, %(activation_code)s);
+    ''', {'username': user["username"], 'password': util.hash_password(user["password"]), 'email': user["email"], 'activation_code': user['activation_code']})
+
+
+def activate(activation_data):
+    return connection_manager.execute_dml_statement('''
+        UPDATE users SET activated=true WHERE username=%(username)s AND activation_code=%(activation_code)s RETURNING activated
+    ''', {'username': activation_data['username'], 'activation_code': activation_data['code']})
+
+
+def get_activated(username):
+    return connection_manager.execute_select('''
+        SELECT activated FROM users WHERE username=%(username)s;
+    ''', {'username': username})
 
 
 def get_boards_data(user_id):
