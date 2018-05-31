@@ -267,3 +267,9 @@ body {
     font-size: large;
     color: white;
 }
+
+.navbar-username {
+    color: white;
+    margin-right: 20px;
+    padding-top: 4px;
+}

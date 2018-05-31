@@ -21,7 +21,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <div class="container navbar-title">
+                <div class="navbar-title">
                     ProMan
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <span id="username"></span>
+                        <span id="username" class="navbar-username"></span>
                         {% if 'user' in session %}
                             <li><button class="btn btn-primary btn-sm" onclick="logout()" type="button">logout</button></li>
                         {% else %}
