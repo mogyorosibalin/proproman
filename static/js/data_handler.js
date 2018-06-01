@@ -170,6 +170,7 @@ let dataHandler = {
     },
 
     editCard: function(cardId, cardTitle, callback) {
+        $('.loading-alert').addClass('active');
         this.getCards((cards) => {
             for (let i = 0; i < cards.length; i++) {
                 if (cards[i].id === cardId) {
@@ -184,11 +185,11 @@ let dataHandler = {
                         },
                         dataType: 'json',
                         success: function(response) {
-
+                            $('.loading-alert').removeClass('active');
+                            showSuccessMessage(response.message);
                         }
                     });
                     callback(cards[i]);
-                    showSuccessMessage(data.message);
                     break;
                 }
             }
@@ -196,6 +197,7 @@ let dataHandler = {
     },
 
     deleteBoard: function(boardId, callback) {
+        $('.loading-alert').addClass('active');
         let board = {};
         dataHandler.getBoards((boards) => {
             for (let i = 0; i < boards.length; i++) {
@@ -222,6 +224,7 @@ let dataHandler = {
                    boardId: boardId
                 },
                 success: function(data) {
+                    $('.loading-alert').removeClass('active');
                     showSuccessMessage(data.message);
                 }
             });
@@ -229,6 +232,7 @@ let dataHandler = {
         });
     },
     deleteCardById: function(cardId){
+        $('.loading-alert').addClass('active');
         let cards = this._data.cards;
         let len = this._data.cards.length;
         let boardId = -1;
@@ -246,6 +250,7 @@ let dataHandler = {
                cardId: cardId
             },
             success: function(data) {
+                $('.loading-alert').removeClass('active');
                 showSuccessMessage(data.message);
             }
         });
