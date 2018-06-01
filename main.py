@@ -33,7 +33,7 @@ def register():
         messages.append({'message': 'The length of the username must be between 4 and 20!', 'type': 'error'})
     if not (6 <= len(new_user["password"]) <= 20):
         messages.append({'message': 'The length of the password must be between 6 and 20!', 'type': 'error'})
-    if not (['@', '.'] in new_user["email"]):
+    if not ('@' in new_user["email"] and '.' in new_user["email"]):
         messages.append({'message': 'Please enter a valid email address!', 'type': 'error'})
     if len(messages) == 0:
         queries.add_new_user(new_user)
