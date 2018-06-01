@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
+        <script src="https://smtpjs.com/v2/smtp.js" defer></script>
         <script src="{{ url_for('static', filename='js/sample_data.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
@@ -20,7 +21,9 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/">ProMan</a>
+                <div class="navbar-title">
+                    ProMan
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,6 +38,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <span id="username" class="navbar-username"></span>
                         {% if 'user' in session %}
                             <li><button class="btn btn-primary btn-sm" onclick="logout()" type="button">logout</button></li>
                         {% else %}
@@ -105,6 +109,10 @@
         <!-- Add card modal end -->
 
         <div class="container" id="boards"></div>
+
+        <div id="get-started">
+            Click on <span>NEW BOARD <i class="fas fa-plus"></i></span> to create a new board
+        </div>
 
         <div id="board-template" style="display: none;">
             <div class="card board" id="board-idData">

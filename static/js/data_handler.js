@@ -257,5 +257,15 @@ let dataHandler = {
         this._data.cards = cards;
         this._saveData();
 
+    },
+    getUsername: function(callback){
+        callback(this._data.username)
+    },
+    getStarted: function(callback){
+        if (this._data.boards.length === 0){
+            callback(true);
+            return
+        }
+        callback(false)
     }
 };

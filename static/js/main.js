@@ -13,6 +13,8 @@ function init() {
     // init data
     dataHandler.init(function() {
         dom.loadBoards();
+        dataHandler.getUsername( (username) => {dom.showUsername(username)});
+        dom.showGetStarted();
     });
     // loads the boards to the screen
 

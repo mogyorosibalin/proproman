@@ -8,9 +8,10 @@ function loadEventListeners() {
             type: 'post',
             url: '/register',
             data: {
-                username: $(this).find('input[name=username]').val(),
-                password: $(this).find('input[name=password]').val(),
-                passwordAgain: $(this).find('input[name=passwordAgain]').val()
+                username: $(this).find('input[name=registerUsername]').val(),
+                email: $(this).find('input[name=registerEmail]').val(),
+                password: $(this).find('input[name=registerPassword]').val(),
+                passwordAgain: $(this).find('input[name=registerPasswordAgain]').val()
             },
             dataType: 'json',
             success: function(data) {
@@ -20,6 +21,22 @@ function loadEventListeners() {
                     messagesString += `<div class="${row.type}">${row.message}</div>`;
                 }
                 $this.find('.messages').html(messagesString);
+
+                if(data.messages[0].type === 'success'){
+
+                    let message = 'Welcome to ProMan! <br />'+
+                    'Please follow this link to activate your account: <br />' +
+                    'https://proproman.herokuapp.com/activate?username=' + data.messages[0].username + '&code=' + data.messages[0].activationCode +
+                    '<br /> asdasdasd';
+
+                     Email.send("promanlogin@gmail.com",
+                        data.messages[0].email,
+                        "Verify registration",
+                        message,
+                        "smtp.gmail.com",
+                        "promanlogin",
+                        "ProProman");
+                }
             }
         });
     });
