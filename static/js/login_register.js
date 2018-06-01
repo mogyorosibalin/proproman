@@ -26,7 +26,7 @@ function loadEventListeners() {
 
                     let message = 'Welcome to ProMan! <br />'+
                     'Please follow this link to activate your account: <br />' +
-                    'http://127.0.0.1:5000/activate?username=' + data.messages[0].username + '&code=' + data.messages[0].activationCode +
+                    'https://proproman.herokuapp.com/activate?username=' + data.messages[0].username + '&code=' + data.messages[0].activationCode +
                     '<br /> asdasdasd';
 
                      Email.send("promanlogin@gmail.com",
