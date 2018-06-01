@@ -10,15 +10,20 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
+        <script src="https://smtpjs.com/v2/smtp.js" defer></script>
         <script src="{{ url_for('static', filename='js/sample_data.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/data_handler.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/dom.js') }}" defer></script>
         <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/login_register.js') }}" defer></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="/">ProMan</a>
+                <div class="navbar-title">
+                    ProMan
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,8 +37,15 @@
                             </a>
                         </li>
                     </ul>
-                    <button class="btn btn-link btn-sm" type="button">Log In</button>
-                    <button class="btn btn-primary btn-sm" type="button">Sign Up</button>
+                    <ul class="nav navbar-nav navbar-right">
+                        <span id="username" class="navbar-username"></span>
+                        {% if 'user' in session %}
+                            <li><button class="btn btn-primary btn-sm" onclick="logout()" type="button">logout</button></li>
+                        {% else %}
+                            <li><button class="btn btn-link btn-sm" type="button">Log In</button></li>
+                            <li><button class="btn btn-primary btn-sm" type="button">Sign Up</button></li>
+                        {% endif %}
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -98,6 +110,10 @@
 
         <div class="container" id="boards"></div>
 
+        <div id="get-started">
+            Click on <span>NEW BOARD <i class="fas fa-plus"></i></span> to create a new board
+        </div>
+
         <div id="board-template" style="display: none;">
             <div class="card board" id="board-idData">
                 <div class="card-header" id="board-idData-heading">
@@ -132,6 +148,16 @@
                     <i class="fa fa-ban" onclick="dom.showDeleteCard(idData);"></i>
                 </div>
             </div>
+        </div>
+
+        <div class="loading-alert">
+            <i class="spinner"></i>
+            <p class="title">Loading ...</p>
+        </div>
+
+        <div class="success-message">
+            <i class="far fa-check-circle"></i>
+            <p class="message"></p>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
