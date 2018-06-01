@@ -74,7 +74,8 @@ def add_card():
     new_card_title = request.form['title']
     new_card_board_id = request.form['board_id']
     new_card_status_id = request.form['status_id']
-    return jsonify({'newId': queries.add_new_card(new_card_title, new_card_board_id, new_card_status_id, session['user']['id'])[0]})
+    return jsonify({'newId': queries.add_new_card(new_card_title, new_card_board_id, new_card_status_id, session['user']['id'])[0],
+                    'message': '"' + new_card_title + '" card added successfully!'})
 
 
 @app.route('/update-card', methods=['POST'])
@@ -90,7 +91,7 @@ def update_card():
 def edit_card():
     edited_card = request.form.to_dict()
     queries.edit_card(edited_card)
-    return jsonify({})
+    return jsonify({'message': '"' + edited_card["cardTitle"] + '" card edited successfully!'})
 
 
 @app.route('/delete-board', methods=['POST'])
