@@ -3,6 +3,7 @@ function loadEventListeners() {
 
     $('#registerForm').on('submit', function(event) {
         let $this = $(this);
+        $this.find('button[type=submit]').prop('disabled', true);
         event.preventDefault();
         $.ajax({
             type: 'post',
@@ -21,6 +22,7 @@ function loadEventListeners() {
                     messagesString += `<div class="${row.type}">${row.message}</div>`;
                 }
                 $this.find('.messages').html(messagesString);
+                $this.find('button[type=submit]').prop('disabled', false);
 
                 if(data.messages[0].type === 'success'){
 
