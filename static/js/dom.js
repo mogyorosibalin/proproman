@@ -38,7 +38,10 @@ let dom = {
             let dragulaArray = [];
             for(let i=1; i<5; i++)
                 dragulaArray.push(document.getElementById('board-' + board.id + '-status-' + String(i)))
-            this.dragulaEvents.push((dragula(dragulaArray)));
+
+            dragula(dragulaArray).on('drop', (element, target) => {
+                dataHandler.updateCardStatusOrder(target);
+            });
         }
     },
     loadCards: function(boardId) {
