@@ -148,8 +148,19 @@ body {
     font-size: larger;
 }
 
+.success, .error {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
 .error {
     color: red;
+}
+
+.success {
+    color: green;
 }
 
 
